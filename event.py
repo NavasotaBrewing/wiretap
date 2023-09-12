@@ -15,7 +15,10 @@ class Event:
         logging.info(f"Event from {self.rtu_id()} received")
 
     def should_be_logged(self):
-        return self.response_type in ['RTUUpdateResult', 'DeviceEnactResult', 'DeviceUpdateResult']
+        # return self.response_type in ['RTUUpdateResult', 'DeviceEnactResult', 'DeviceUpdateResult']
+        # For now just log all event types
+        # Might change this later
+        return True
 
     def rtu_id(self):
         return self.data['RTU']['id']
@@ -41,3 +44,4 @@ class Event:
         with open(file_path, 'a') as file:
             file.write(f"{self.datestamp} {self.timestamp}|{json.dumps(self.json)}\n")
             logging.info(f"Event from {self.rtu_id()} written to file {file_path}")
+
